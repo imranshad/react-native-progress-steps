@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 
+const cirSize=30
+
 class StepIcon extends Component {
   render() {
     let styles;
@@ -9,17 +11,19 @@ class StepIcon extends Component {
     if (this.props.isActiveStep) {
       styles = {
         circleStyle: {
-          width: 40,
-          height: 40,
-          borderRadius: 20,
+          width: cirSize,
+          height: cirSize,
+          borderRadius: cirSize/2,
           backgroundColor: this.props.activeStepIconColor,
           borderColor: this.props.activeStepIconBorderColor,
           borderWidth: 5,
           bottom: 2,
+          justifyContent:"center",
         },
         circleText: {
           alignSelf: 'center',
-          top: 20 / 3,
+          // top: 20 / 3,
+          textAlign:"center"
         },
         labelText: {
           textAlign: 'center',
@@ -32,23 +36,23 @@ class StepIcon extends Component {
         },
         leftBar: {
           position: 'absolute',
-          top: 40 / 2.22,
+          top: cirSize / 2.22,
           left: 0,
-          right: 40 + 8,
+          right: cirSize + 8,
           borderTopStyle: this.props.borderStyle,
           borderTopWidth: this.props.borderWidth,
           borderTopColor: this.props.completedProgressBarColor,
-          marginRight: 40 / 2 + 2,
+          marginRight: cirSize / 2 + 2,
         },
         rightBar: {
           position: 'absolute',
-          top: 40 / 2.22,
+          top: cirSize / 2.22,
           right: 0,
-          left: 40 + 8,
+          left: cirSize + 8,
           borderTopStyle: this.props.borderStyle,
           borderTopWidth: this.props.borderWidth,
           borderTopColor: this.props.progressBarColor,
-          marginLeft: 40 / 2 + 2,
+          marginLeft: cirSize / 2 + 2,
         },
         stepNum: {
           color: this.props.activeStepNumColor,
@@ -57,14 +61,16 @@ class StepIcon extends Component {
     } else if (this.props.isCompletedStep) {
       styles = {
         circleStyle: {
-          width: 36,
-          height: 36,
-          borderRadius: 18,
+          width: cirSize-2,
+          height: cirSize-2,
+          borderRadius: (cirSize-2)/2,
+          justifyContent: 'center',
           backgroundColor: this.props.completedStepIconColor,
         },
         circleText: {
           alignSelf: 'center',
-          top: 18 / 2,
+          textAlign:"center"
+          // top: 18 / 2,
         },
         labelText: {
           textAlign: 'center',
@@ -78,23 +84,23 @@ class StepIcon extends Component {
         },
         leftBar: {
           position: 'absolute',
-          top: 36 / 2,
+          top: (cirSize-2) / 2,
           left: 0,
-          right: 36 + 8,
+          right: (cirSize-2) + 8,
           borderTopStyle: this.props.borderStyle,
           borderTopWidth: this.props.borderWidth,
           borderTopColor: this.props.completedProgressBarColor,
-          marginRight: 36 / 2 + 4,
+          marginRight: (cirSize-2) / 2 + 4,
         },
         rightBar: {
           position: 'absolute',
-          top: 36 / 2,
+          top: (cirSize-2) / 2,
           right: 0,
-          left: 36 + 8,
+          left: (cirSize-2) + 8,
           borderTopStyle: this.props.borderStyle,
           borderTopWidth: this.props.borderWidth,
           borderTopColor: this.props.completedProgressBarColor,
-          marginLeft: 36 / 2 + 4,
+          marginLeft: (cirSize-2) / 2 + 4,
         },
         stepNum: {
           color: this.props.completedStepNumColor,
@@ -103,14 +109,16 @@ class StepIcon extends Component {
     } else {
       styles = {
         circleStyle: {
-          width: 36,
-          height: 36,
-          borderRadius: 18,
+          width: cirSize-2,
+          height: cirSize-2,
+          borderRadius: (cirSize-2/2),
+          justifyContent: 'center',
           backgroundColor: this.props.disabledStepIconColor,
         },
         circleText: {
           alignSelf: 'center',
-          top: 18 / 2,
+          textAlign:"center"
+          // top: 18 / 2,
         },
         labelText: {
           textAlign: 'center',
@@ -124,23 +132,23 @@ class StepIcon extends Component {
         },
         leftBar: {
           position: 'absolute',
-          top: 36 / 2,
+          top: (cirSize-2) / 2,
           left: 0,
-          right: 36 + 8,
+          right: (cirSize-2) + 8,
           borderTopStyle: this.props.borderStyle,
           borderTopWidth: this.props.borderWidth,
           borderTopColor: this.props.progressBarColor,
-          marginRight: 36 / 2 + 4,
+          marginRight: (cirSize-2) / 2 + 4,
         },
         rightBar: {
           position: 'absolute',
-          top: 36 / 2,
+          top: (cirSize-2) / 2,
           right: 0,
-          left: 36 + 8,
+          left: (cirSize-2) + 8,
           borderTopStyle: this.props.borderStyle,
           borderTopWidth: this.props.borderWidth,
           borderTopColor: this.props.progressBarColor,
-          marginLeft: 36 / 2 + 4,
+          marginLeft: (cirSize-2) / 2 + 4,
         },
         stepNum: {
           color: this.props.disabledStepNumColor,
@@ -150,7 +158,7 @@ class StepIcon extends Component {
 
     return (
       <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-        <View style={styles.circleStyle}>
+        <View style={[styles.circleStyle]}>
           <Text style={styles.circleText}>
             {this.props.isCompletedStep ? (
               <Text style={{ color: this.props.completedCheckColor }}>&#10003;</Text>
@@ -160,8 +168,8 @@ class StepIcon extends Component {
           </Text>
         </View>
         <Text style={styles.labelText}>{this.props.label}</Text>
-        {!this.props.isFirstStep && <View style={styles.leftBar} />}
-        {!this.props.isLastStep && <View style={styles.rightBar} />}
+        {/* {!this.props.isFirstStep && <View style={[styles.leftBar,{left:0,right:0,zIndex:-100,elevation:-10}]} />}
+        {!this.props.isLastStep && <View style={[styles.rightBar,{left:0,right:0,zIndex:-100,elevation:-10}]} />} */}
       </View>
     );
   }

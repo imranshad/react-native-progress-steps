@@ -67,6 +67,8 @@ class ProgressSteps extends Component {
   render() {
     const styles = {
       stepIcons: {
+        paddingLeft:20,
+        paddingRight:20,
         position: 'relative',
         justifyContent: 'space-evenly',
         alignSelf: 'center',
